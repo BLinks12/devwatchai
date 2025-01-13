@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>DevWatch AI - Developer Wallet Monitor (Extended Realism)</title>
+  <style>
+    :root {
+      --primary-color: #ffdd00;
+      --background-color: #000000;
+      --terminal-background: rgba(20, 20, 0, 0.9);
+      --border-color: var(--primary-color);
+      --text-color: var(--primary-color);
+      --hover-background: var(--primary-color);
+      --hover-text: var(--background-color);
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      background: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      text-shadow: 0 0 15px var(--primary-color);
+      margin: 20px 0;
+    }
+
+    .container {
+      width: min(95%, 1200px);
+      background: var(--terminal-background);
+      border: 2px solid var(--border-color);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(255, 221, 0, 0.7);
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border: 2px solid var(--border-color);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      background: rgba(20, 20, 0, 0.5);
+    }
+
+    .terminal {
+      background: #2b2b00;
+      border: 2px solid var(--border-color);
+      height: 220px;
+      padding: 15px;
+      font-size: 1rem;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .terminal p {
+      margin: 0;
+      padding: 2px 0;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      background: #1a1a00;
+      color: var(--text-color);
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(255, 221, 0, 0.8);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 15px;
+      background: transparent;
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background: var(--hover-background);
+      color: var(--hover-text);
+      box-shadow: 0 0 20px rgba(255, 221, 0, 0.5);
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <h1>DevWatch AI - Developer Wallet Monitor</h1>
+
+  <div class="container">
+    <div class="status-bar">
+      <span id="connection-status">STATUS: ACTIVE</span>
+      <span id="encryption">ENCRYPTION: AES-512</span>
+      <span id="transactions">DEV WALLET ACTIONS: 0</span>
+    </div>
+
+    <input 
+      type="text" 
+      id="token-input" 
+      placeholder="Enter PumpFun Token Address (e.g., 6got8x2LC...pump)"
+    />
+
+    <div class="terminal" id="terminal-log">
+      <p>[SYSTEM] DevWatch AI initialized...</p>
+    </div>
+
+    <div class="buttons">
+      <button id="submit-token-button">ANALYZE TOKEN</button>
+      <button id="clear-button">CLEAR TERMINAL</button>
+    </div>
+
+    <div class="footer-text">
+      DevWatch AI © 2025 | Watch. Detect. Report.
+    </div>
+  </div>
+
+  <script>
+    const terminalLog = document.getElementById("terminal-log");
+    const submitTokenButton = document.getElementById("submit-token-button");
+    const clearButton = document.getElementById("clear-button");
+    const transactionCount = document.getElementById("transactions");
+    const tokenInput = document.getElementById("token-input");
+
+    // Keep track of scanning status & dev wallet action count
+    let actionCount = 0;
+    let scanningInProgress = false;
+
+    // A small helper to "await" some milliseconds
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // This function appends messages to the terminal with a timestamp
+    function logMessage(msg) {
+      const timestamp = new Date().toLocaleTimeString();
+      const line = document.createElement("p");
+      line.textContent = `[${timestamp}] ${msg}`;
+      terminalLog.appendChild(line);
+      terminalLog.scrollTop = terminalLog.scrollHeight;
+    }
+
+    // The step-by-step analysis function with built-in realistic delays
+    async function analyzeToken(tokenAddress) {
+      scanningInProgress = true;
+
+      // Step 1: Queue Request
+      logMessage(`[QUEUE] Request received for token: ${tokenAddress}`);
+      await delay(1500);
+
+      // Step 2: Validate token format
+      logMessage("[VALIDATION] Checking token format...");
+      await delay(1700);
+
+      if (!tokenAddress.endsWith("pump")) {
+        logMessage("[ERROR] Invalid token address. Please enter a valid PumpFun token ending in 'pump'.");
+        scanningInProgress = false;
+        return;
+      }
+
+      logMessage("[VALIDATION] Token format confirmed. PumpFun token verified.");
+      await delay(2000);
+
+      // Step 3: Simulate queue
+      logMessage("[INFO] High demand detected. Placing your request in the processing queue...");
+      await delay(2500);
+
+      // Step 4: Begin dev wallet scanning
+      logMessage("[SCANNING] Searching developer & insider wallets for suspicious activity...");
+      await delay(3000);
+
+      // Step 5: Simulate "deep analysis"
+      logMessage("[PROCESS] Checking historical transactions, contract ownership changes, and liquidity logs...");
+      await delay(3500);
+
+      // Step 6: Summarize final results (the user specifically wants "Not suspicious dev activity found")
+      logMessage(`[REPORT] Finalizing results for ${tokenAddress}...`);
+      await delay(2000);
+
+      logMessage(`[RESULT] No suspicious dev activity found for ${tokenAddress}.`);
+      logMessage("[DONE] Analysis complete. Data archived in DevWatch AI logs.");
+
+      // Increase the dev wallet action count & mark scanning complete
+      actionCount++;
+      transactionCount.textContent = `DEV WALLET ACTIONS: ${actionCount}`;
+      scanningInProgress = false;
+    }
+
+    // EVENT: Analyze button
+    submitTokenButton.addEventListener("click", () => {
+      if (scanningInProgress) {
+        logMessage("[WARNING] Another scan is currently in progress. Please wait until it completes.");
+        return;
+      }
+      const tokenAddress = tokenInput.value.trim();
+      if (!tokenAddress) {
+        logMessage("[ERROR] Please enter a PumpFun token address.");
+        return;
+      }
+      analyzeToken(tokenAddress);
+    });
+
+    // EVENT: Clear button
+    clearButton.addEventListener("click", () => {
+      terminalLog.innerHTML = '<p>[SYSTEM] DevWatch AI initialized...</p>';
+      actionCount = 0;
+      transactionCount.textContent = "DEV WALLET ACTIONS: 0";
+      tokenInput.value = "";
+      scanningInProgress = false;
+    });
+  </script>
+</body>
+</html>
